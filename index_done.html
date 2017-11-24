@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Todos</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="assets/styles/app.css">
+</head>
+
+<body>
+    <section id="todos">
+        <header id="header">
+            <h1>Todos</h1>
+            <input id="new-todo" v-model="newTodo" type="text" @keyup.enter="createTodo" placeholder="有什么需要完成的？" />
+        </header>
+        <section class="main">
+            <ul id="todo-list" class="todo-list">
+                <li :class="{completed: todo.isCompleted}" v-for="(todo, index) in filterTodos">
+                    <input :id="'todo_' + index" :checked="todo.isCompleted" @change="toggleTodo(index)" class="toggle" type="checkbox">
+                    <label :for="'todo_' + index">
+                        {{todo.content}}
+                    </label>
+                    <button @click="destroyTodo(index)" class="destroy"></button>
+                </li>
+            </ul>
+        </section>
+        <footer id="footer">
+            <span id="todo-count">共{{filterTodos.length}}条记录</span>
+            <ul id="filters">
+                <li>
+                    <a href="javascript:void(0);" @click="filter = 'all'" :class="{selected: filter == 'all'}">全部</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" @click="filter = 'active'" :class="{selected: filter == 'active'}">未完成</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" @click="filter = 'completed'" :class="{selected: filter == 'completed'}">已完成</a>
+                </li>
+            </ul>
+        </footer>
+
+    </section>
+    <script src="assets/javascripts/vue.min.js"></script>
+    <script src="assets/javascripts/app.js"></script>
+</body>
+
+</html>
